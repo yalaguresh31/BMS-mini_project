@@ -1,0 +1,6 @@
+# .gitignore
+.vscode/
+*.json
+
+# Node modules directory
+node_modules/ 
