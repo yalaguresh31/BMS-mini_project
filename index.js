@@ -23,6 +23,9 @@ app.use('/',userRoute);
 const blogRoute = require("./routes/blogRoute");
 app.use('/',blogRoute);
 
+const Post = require('./models/postModel');
+const { ObjectId } = require('mongodb');
+
 io.on("connection", function(socket){
     console.log('User Connected');
 
@@ -43,6 +46,15 @@ io.on("connection", function(socket){
         socket.broadcast.emit("delete_post",postId);
     });
     
+    socket.on('increment_page_view',async function(post_id){
+        var data = await Post.findOneAndUpdate({_id:new ObjectId(post_id)},{
+            $inc: { views: 1 }
+        },{
+            new: true,
+        });
+        socket.broadcast.emit("updated_views",data);
+    });
+
 });
 
 http.listen(3000,function(){
