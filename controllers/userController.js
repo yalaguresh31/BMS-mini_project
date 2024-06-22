@@ -62,10 +62,11 @@ const verifyLogin = async(req,res)=>{
             if(passwordMatch){
                 req.session.user_id = userData._id;
                 req.session.is_admin = userData.is_admin;
+                res.cookie(`user`,JSON.stringify(userData));
                 if(userData.is_admin == 1){
                     res.redirect('/dashboard');
                 }else{
-                    res.redirect('/profile');
+                    res.redirect('/');
                 }
             }else{
                 res.render('login',{message:"Email and Password is incorrect!"});
@@ -79,17 +80,10 @@ const verifyLogin = async(req,res)=>{
     }
 }
 
-const profile = async(req,res)=>{
-    try {
-        res.send('hii profile here');
-    } catch (error) {
-        console.log(error.message);
-    }
-}
-
 const logout = async(req,res)=>{
     try {
         req.session.destroy();
+        res.clearCookie('user');
         res.redirect('/login');
     } catch (error) {
         console.log(error.message);
@@ -163,13 +157,48 @@ const resetPassword = async(req,res)=>{
         console.log(error.message);
     }
 }
+
+const loadRegister = async(req,res)=>{
+    try {
+        
+        res.render('register');
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+
+const register = async(req, res)=>{
+
+    try {
+
+        const passwordHash = await bcrypt.hash(req.body.password, 10);
+
+        const user = new User({
+            name: req.body.name,
+            email: req.body.email,
+            password: passwordHash,
+            is_admin: req.body.is_admin || 0
+        });
+
+        await user.save();
+
+        res.render('register',{ message: 'Your Registration has beend Completed!' });
+        
+    } catch (error) {
+        console.log(error.message);
+    }
+
+}
+
 module.exports = {
     loadLogin,
     verifyLogin,
-    profile,
     logout,
     forgetLoad,
     forgetPasswordVerify,
     resetPasswordLoad,
-    resetPassword
+    resetPassword,
+    loadRegister,
+    register
 }

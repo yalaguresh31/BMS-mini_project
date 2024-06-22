@@ -1,4 +1,5 @@
 const Post = require('../models/postModel');
+const Like = require('../models/likeModel');
 const Setting = require('../models/settingModel');
 const { ObjectId } =  require('mongodb');
 
@@ -66,8 +67,12 @@ const loadPost = async(req,res)=>{
 
     try {
         
+        const likes = await Like.find({"post_id":req.params.id,type:1 }).count();
+        const dislikes = await Like.find({ "post_id":req.params.id,type:0}).count();
+
         const post = await Post.findOne({"_id":req.params.id});
-        res.render('post',{post:post});
+
+        res.render('post',{post:post, likes:likes, dislikes:dislikes});
     
     } catch (error) {
     console.log(error.message);

@@ -52,6 +52,22 @@
                     <p class="fs-5 mb-4"><%- post.content %></p>
                 </section>
             </article>
+
+            <!-- like dislike icons start -->
+                <div style="font-size: 20px;">
+                    <div class="row">
+                        <div class="col-md-1">
+                            <i class="fa-solid fa-thumbs-up"></i>
+                            <span id="like"><%= likes %></span>
+                        </div>
+                        <div class="col-md-1">
+                            <i class="fa-solid fa-thumbs-down"></i>
+                            <span id="dislike"><%= dislikes %></span>
+                        </div>
+                    </div>
+                </div>
+            <!-- like dislike icons end -->
+
             <!-- Comments section-->
             <section class="mb-5">
                 <div class="card bg-light">
@@ -241,6 +257,30 @@
         socket.on("updated_views",function(data){
             if(post_id == data._id){
                 $('#views_count').text(data.view+'Views');
+            }
+        });
+
+        //realtime like-dislike start
+        
+        if(userId == null){
+            $('.fa-solid.fa-thumbs-up').addClass('disabled');
+            $('.fa-solid.fa-thumbs-up').addClass('disabled');
+        }
+        
+        $('.fa-solid.fa-thumbs-up').click(function(){
+            socket.emit("like",{post_id:post_id, user_id:userId });
+        });
+
+        
+        $('.fa-solid.fa-thumbs-down').click(function(){
+            socket.emit("dislike",{post_id:post_id,user_id:userId});
+        });
+
+        socket.on("like_dislike",function(data){
+            // console.log(data);
+            if(post_id == data.post_id){
+                $('#like').text(data.likes);
+                $('#dislike').text(data.dislikes);
             }
         });
     });

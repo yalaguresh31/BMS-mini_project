@@ -24,6 +24,7 @@ const blogRoute = require("./routes/blogRoute");
 app.use('/',blogRoute);
 
 const Post = require('./models/postModel');
+const Like = require('./models/likeModel');
 const { ObjectId } = require('mongodb');
 
 io.on("connection", function(socket){
@@ -54,7 +55,53 @@ io.on("connection", function(socket){
         });
         socket.broadcast.emit("updated_views",data);
     });
+    
+    socket.on("like", async function(data){
+        
+        await Like.updateOne({
+            post_id:data.post_id,
+            user_id:data.user_id
+        },{
+            type:1
+        },{
+            upsert: true
+        });
 
+        const likes = await Like.countDocuments({ "post_id":data.post_id,type:1 });
+        const dislikes = await Like.countDocuments({ "post_id":data.post_id,type:0 });
+        
+        console.log("Emitting like_dislike event:", { post_id: data.post_id, likes: likes, dislikes: dislikes });
+
+        //socket.emit or io.emit
+        io.emit("like_dislike",{
+            post_id:data.post_id,
+            likes:likes,
+            dislikes:dislikes
+        });
+    });
+
+
+    socket.on("dislike", async function(data){
+        await Like.updateOne({
+            post_id:data.post_id,
+            user_id:data.user_id
+        },{
+            type:0
+        },{
+            upsert: true
+        });
+
+        const likes = await Like.countDocuments({ "post_id":data.post_id,type:1 });
+        const dislikes = await Like.countDocuments({ "post_id":data.post_id,type:0 });
+        
+        console.log("Emitting like_dislike event:", { post_id: data.post_id, likes: likes, dislikes: dislikes });
+
+        io.emit("like_dislike",{
+            post_id:data.post_id,
+            likes:likes,
+            dislikes:dislikes
+        });
+    });
 });
 
 http.listen(3000,function(){
