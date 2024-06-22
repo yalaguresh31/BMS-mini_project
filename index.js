@@ -31,7 +31,6 @@ io.on("connection", function(socket){
     console.log('User Connected');
 
     socket.on("new_post",function(formData){
-        // console.log(formData);
         socket.broadcast.emit("new_post",formData);
     });
 
@@ -69,8 +68,6 @@ io.on("connection", function(socket){
 
         const likes = await Like.countDocuments({ "post_id":data.post_id,type:1 });
         const dislikes = await Like.countDocuments({ "post_id":data.post_id,type:0 });
-        
-        console.log("Emitting like_dislike event:", { post_id: data.post_id, likes: likes, dislikes: dislikes });
 
         //socket.emit or io.emit
         io.emit("like_dislike",{
@@ -93,8 +90,6 @@ io.on("connection", function(socket){
 
         const likes = await Like.countDocuments({ "post_id":data.post_id,type:1 });
         const dislikes = await Like.countDocuments({ "post_id":data.post_id,type:0 });
-        
-        console.log("Emitting like_dislike event:", { post_id: data.post_id, likes: likes, dislikes: dislikes });
 
         io.emit("like_dislike",{
             post_id:data.post_id,
@@ -111,3 +106,4 @@ http.listen(3000,function(){
 // app.listen(3000,function(){
 //     console.log("Server is running");
 // });
+

@@ -57,11 +57,11 @@
                 <div style="font-size: 20px;">
                     <div class="row">
                         <div class="col-md-1">
-                            <i class="fa-solid fa-thumbs-up"></i>
+                            <i class="fa-regular fa-thumbs-up thumb"></i>
                             <span id="like"><%= likes %></span>
                         </div>
                         <div class="col-md-1">
-                            <i class="fa-solid fa-thumbs-down"></i>
+                            <i class="fa-regular fa-thumbs-down thumb2"></i>
                             <span id="dislike"><%= dislikes %></span>
                         </div>
                     </div>
@@ -263,22 +263,36 @@
         //realtime like-dislike start
         
         if(userId == null){
-            $('.fa-solid.fa-thumbs-up').addClass('disabled');
-            $('.fa-solid.fa-thumbs-up').addClass('disabled');
+            $('.fa-thumbs-up').addClass('disabled');
+            $('.fa-thumbs-down').addClass('disabled');
         }
-        
-        $('.fa-solid.fa-thumbs-up').click(function(){
-            socket.emit("like",{post_id:post_id, user_id:userId });
+
+        $('.thumb').click(function() {
+            if (userId != null) {
+                socket.emit("like", { post_id: post_id, user_id: userId });
+                
+                if ($('.thumb2').hasClass('fa-solid')) {
+                    $('.thumb2').removeClass('fa-solid').addClass('fa-regular');
+                }
+                this.classList.toggle('fa-regular');
+                this.classList.toggle('fa-solid');
+            }
         });
 
-        
-        $('.fa-solid.fa-thumbs-down').click(function(){
-            socket.emit("dislike",{post_id:post_id,user_id:userId});
+        $('.thumb2').click(function() {
+            if (userId != null) {
+                socket.emit("dislike", { post_id: post_id, user_id: userId });
+                
+                if ($('.thumb').hasClass('fa-solid')) {
+                    $('.thumb').removeClass('fa-solid').addClass('fa-regular');
+                }
+                this.classList.toggle('fa-regular');
+                this.classList.toggle('fa-solid');
+            }
         });
 
-        socket.on("like_dislike",function(data){
-            // console.log(data);
-            if(post_id == data.post_id){
+        socket.on("like_dislike", function(data) {
+            if (post_id == data.post_id) {
                 $('#like').text(data.likes);
                 $('#dislike').text(data.dislikes);
             }
