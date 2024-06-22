@@ -1,4 +1,4 @@
-befor runing projcet
+# befor runing projcet
 
 path>npm init -y	//created package.json file
 
