@@ -4,6 +4,7 @@
             <h2 class="mb-4">Add post</h2>
         <div class="container">
             <form method="POST" id="addPost">
+                <input type="hidden" name="user_id" value="<%= user._id %>">
                 <!-- title block -->
                 <div class="row">
                     <div class="col-sm-12">

@@ -83,7 +83,10 @@ const dashboard2 = async(req,res)=>{
 }
 const loadPostDashboard = async(req,res)=>{
     try{
-        res.render('admin/postDashboard');
+        const user = await User.findById(req.session.user_id); // Fetch only the _id field
+         // Extract the _id field from the users array
+        res.render('admin/postDashboard', { user });
+
     }catch(error){
         console.log(error.message);
     }
@@ -97,6 +100,7 @@ const addPost = async(req,res)=>{
         }
         const post = new Post({
             title: req.body.title,
+            user_id: req.body.user_id,
             content: req.body.content,
             image: image
         });
