@@ -32,6 +32,7 @@
                   <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
                   <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
 
+                  <li class="nav-item logout"><a class="nav-link" href="/dashboard2">My Blogs</a></li>
                   <li class="nav-item logout"><a class="nav-link" href="/user-logout">Logout</a></li>
                   <li class="nav-item login"><a class="nav-link" href="/login">Login</a></li>
                   <li class="nav-item login"><a class="nav-link" href="/register">Register</a></li>
@@ -51,6 +52,7 @@
   var userId = null;
   if(getCookie('user') === undefined){
     document.getElementsByClassName('logout')[0].style.display = 'none';
+    document.getElementsByClassName('logout')[1].style.display = 'none';
     document.getElementsByClassName('login')[0].style.display = 'block';
     document.getElementsByClassName('login')[1].style.display = 'block';
   }
@@ -58,6 +60,7 @@
     userData = JSON.parse(getCookie('user'));
     userId = userData._id;
     document.getElementsByClassName('logout')[0].style.display = 'block';
+    document.getElementsByClassName('logout')[1].style.display = 'block';
     document.getElementsByClassName('login')[0].style.display = 'none';
     document.getElementsByClassName('login')[1].style.display = 'none';
 

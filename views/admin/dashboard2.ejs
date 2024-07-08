@@ -1,7 +1,7 @@
-<%- include('../layouts/admin-header.ejs') %>
+<%- include('../layouts/myBlogs-header.ejs') %>
         <!-- Page Content  -->
         <div id="content" class="p-4 p-md-5 pt-5">
-            <h2 class="mb-4">Dashboard</h2>
+            <h2 class="mb-4">Posts</h2>
 
             <table class="table">
                 <thead>
@@ -10,6 +10,8 @@
                         <th>Title</th>
                         <th>Content</th>
                         <th>Image</th>
+                        <th>Delete</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +26,12 @@
                                     <td><%= post.content %></td>
                                     <td>
                                         <img src="<%= post.image %>" alt="<%= post.image %>" width="100px">
+                                    </td>
+                                    <td>
+                                        <a href="#" class="btn btn-danger deletePost" data-id="<%= post._id %>">Delete</a>
+                                    </td>
+                                    <td>
+                                        <a href="/edit-post/<%= post._id %>" class="btn btn-warning">Edit</a>
                                     </td>
                                 </tr>
                                 <%
@@ -68,4 +76,4 @@
         });
     });
 </script>
-<%- include('../layouts/admin-footer.ejs') %>
+<%- include('../layouts/myBlogs-footer.ejs') %>

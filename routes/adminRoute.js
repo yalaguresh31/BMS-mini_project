@@ -35,21 +35,24 @@ const upload = multer({storage:storage});
 
 const adminController = require("../controllers/adminController");
 const adminLoginAuth = require('../middlewares/adminLoginAuth');
+const myBlogsLoginAuth = require('../middlewares/myBlogsLoginAuth');
 
 admin_route.get('/blog-setup',adminController.blogSetup);
 admin_route.post('/blog-setup',upload.single('blog_image'), adminController.blogSetupSave);
 
 admin_route.get('/dashboard',adminLoginAuth.isLogin,adminController.dashboard);
 
-admin_route.get('/create-post',adminLoginAuth.isLogin,adminController.loadPostDashboard);
-admin_route.post('/create-post',adminLoginAuth.isLogin,adminController.addPost);
+admin_route.get('/dashboard2',myBlogsLoginAuth.isLogin,adminController.dashboard2);
 
-admin_route.post('/upload-post-image',upload.single('image'),adminLoginAuth.isLogin,adminController.uploadPostImage);
+admin_route.get('/create-post',myBlogsLoginAuth.isLogin,adminController.loadPostDashboard);
+admin_route.post('/create-post',myBlogsLoginAuth.isLogin,adminController.addPost);
 
-admin_route.post('/delete-post',adminLoginAuth.isLogin,adminController.deletePost);
+admin_route.post('/upload-post-image',upload.single('image'),myBlogsLoginAuth.isLogin,adminController.uploadPostImage);
 
-admin_route.get('/edit-post/:id',adminLoginAuth.isLogin,adminController.loadEditPost);
-admin_route.post('/update-post',adminLoginAuth.isLogin,adminController.updatePost);
+admin_route.post('/delete-post',myBlogsLoginAuth.isLogin,adminController.deletePost);
+
+admin_route.get('/edit-post/:id',myBlogsLoginAuth.isLogin,adminController.loadEditPost);
+admin_route.post('/update-post',myBlogsLoginAuth.isLogin,adminController.updatePost);
 
 admin_route.get('/settings',adminLoginAuth.isLogin,adminController.loadSettings);
 admin_route.post('/settings',adminLoginAuth.isLogin,adminController.saveSettings);

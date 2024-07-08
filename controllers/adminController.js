@@ -73,6 +73,14 @@ const dashboard = async(req,res)=>{
         console.log(error.message);
     }
 }
+const dashboard2 = async(req,res)=>{
+    try{
+        const allPosts = await Post.find({});
+        res.render('admin/dashboard2',{posts:allPosts});
+    }catch(error){
+        console.log(error.message);
+    }
+}
 const loadPostDashboard = async(req,res)=>{
     try{
         res.render('admin/postDashboard');
@@ -204,6 +212,7 @@ module.exports = {
     loadEditPost,
     updatePost,
     loadSettings,
-    saveSettings
+    saveSettings,
+    dashboard2
 }
 
