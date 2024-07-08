@@ -75,8 +75,9 @@ const dashboard = async(req,res)=>{
 }
 const dashboard2 = async(req,res)=>{
     try{
-        const allPosts = await Post.find({});
-        res.render('admin/dashboard2',{posts:allPosts});
+         const userId = req.session.user_id; // Assuming userId is passed as a route parameter
+    const userPosts = await Post.find({ user_id: userId });
+    res.render('admin/dashboard2', { posts: userPosts });
     }catch(error){
         console.log(error.message);
     }
