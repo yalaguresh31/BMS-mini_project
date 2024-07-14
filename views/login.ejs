@@ -1,41 +1,42 @@
-
 <%- include('./layouts/header.ejs') %>
-
-    <div class="container mb-5 mt-5">
-        <h1>Login</h1>
-
+    <style>
+        body{
+            background-color: rgb(239, 193, 125);
+        }
+        form{
+            margin-top: 10px;
+        }
+    </style>
+    <div class="container mb-5 mt-5 playcard" >
+        
         <%
-            if(typeof message !== 'undefined'){
-                %>
-                <p style="color: red;"><%= message %></p>
-                <%
-            }
-
+        if(typeof message !== 'undefined'){
+            %>
+            <p style="color: red;"><%= message %></p>
+            <%
+        }
+        
         %>
-
+    
         <form action="" method="POST">
-            <div class="row">
-                <div class="col-sm-12">
-                <input type="emaił" name="email" placeholder="Enter Email" required>
+            <h1 style="color:#BBE1FA;">Login</h1>
+            <div class="row mt-3 playcard-container">
+                <div class="row" style="margin: 15px 0;">
+                  <input type="emaił" name="email" placeholder="Enter email" aria-label="First name" required>
                 </div>
+                <div class="row">
+                  <input type="password" name="password" placeholder="Enter password" aria-label="Last name" required>
+                </div>
+                <div class="row mt-3">
+                    <input type="submit" value="Login" class="btn btn-info">
+                </div>
+                <div class="row">
+                    <a href="/forget-password" id="playcard-container-fpass">Forget Password??</a>
+                </div>    
             </div>
 
-            <div class="row mt-3">
-                <div class="col-sm-12">
-                <input type="password" name="password" placeholder="Enter password" required>
-                </div>
-            </div>
-
-
-            <div class="row mt-3">
-                <div class="col-sm-12">
-                <input type="submit" value="Login" class="btn btn-info">
-                </div>
-            </div>
-            </form>
-
-            <a href="/forget-password">Forget Password</a>
             
+            </form>
     </div>
 
 <%- include('./layouts/footer.ejs') %>

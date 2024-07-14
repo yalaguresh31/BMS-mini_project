@@ -97,6 +97,17 @@ io.on("connection", function(socket){
             dislikes:dislikes
         });
     });
+
+    socket.on("like_dislike", async function(data){
+        const likes = await Like.countDocuments({ "post_id":data.post_id,type:1 });
+        const dislikes = await Like.countDocuments({ "post_id":data.post_id,type:0 });
+
+        io.emit("like_dislike",{
+            post_id:data.post_id,
+            likes:likes,
+            dislikes:dislikes
+        });
+    })
 });
 
 http.listen(3000,function(){

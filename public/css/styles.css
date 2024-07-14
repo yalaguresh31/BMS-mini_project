@@ -10,6 +10,43 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+body {
+  font-family: Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.main-page-img {
+  background-image: url('/images/home-bg-img.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 300px;
+  position: relative;
+}
+
+.main-page-img-content {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.main-page-img-content h1 {
+  margin: 0;
+  font-size: 2.5em;
+}
+
+.blog-post {
+  margin-bottom: 20px;
+}
+
+.blog-post h2 {
+  margin-top: 0;
+}
+
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;

@@ -167,6 +167,24 @@ const loadRegister = async(req,res)=>{
         console.log(error.message);
     }
 }
+const loadAbout = async(req,res)=>{
+    try {
+        
+        res.render('about');
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
+const loadContact = async(req,res)=>{
+    try {
+        
+        res.render('contact');
+
+    } catch (error) {
+        console.log(error.message);
+    }
+}
 
 const register = async(req, res)=>{
 
@@ -183,7 +201,7 @@ const register = async(req, res)=>{
 
         await user.save();
 
-        res.render('register',{ message: 'Your Registration has beend Completed!' });
+        res.render('register',{ message: 'Your Registration has been Completed!' });
         
     } catch (error) {
         console.log(error.message);
@@ -200,5 +218,7 @@ module.exports = {
     resetPasswordLoad,
     resetPassword,
     loadRegister,
-    register
+    register,
+    loadAbout,
+    loadContact
 }

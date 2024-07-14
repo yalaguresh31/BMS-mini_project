@@ -1,6 +1,40 @@
 <%- include("./layouts/header.ejs") %>
+<style>
+    body{
+        background-image: url('/public/images/home-bg-img.png');
+        background-color: rgb(239, 193, 125);
 
-<!-- Page Content-->
+        font-family: "Poppins", Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.8;
+        font-weight: normal;
+        color: black;
+    }
+    pre{
+        color: #fff; 
+        font-size: 50px;
+    }
+    p{
+        text-align: justify;
+        display: block;
+        margin-block-start: 1em;
+        margin-block-end: 1em;
+        margin-inline-start: 0px;
+        margin-inline-end: 0px;
+        unicode-bidi: isolate;
+}
+
+</style>
+
+<div class="main-page-img" id="main-img">
+    <div class="main-page-img-content">
+      <pre>
+      Personal 
+              Blogs
+      </pre>
+    </div>
+</div> 
+    <!-- Page Content-->
 <div class="container px-4 px-lg-5 posts">
     <!-- Heading Row-->
 
@@ -27,7 +61,7 @@
                     </div>
                     <div class="col-lg-5">
                         <h1 class="font-weight-light"><%= posts[i].title %></h1>
-                        <p><%- posts[i].content %></p>
+                        <p ><%- posts[i].content %></p>
                         <a class="btn btn-primary" href="/post/<%= posts[i]._id %>">Read More</a>
                     </div>
                 </div>
@@ -51,6 +85,15 @@
 </div>
 
 <script>
+    function getCookie(name){
+        let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g,'\\$1') + "=([^;]*)"));
+        return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+    if(getCookie('user') == undefined){
+        document.getElementById('main-img').style.display = 'block'
+    }else{
+        document.getElementById('main-img').style.display = 'none'
+    }
 
     var start = 0;
     var limit = <%= postLimit %>;
@@ -154,5 +197,6 @@
         $('.posts').prepend(html);
     });
 </script>
+</body>
 
 <%- include("./layouts/footer.ejs") %>

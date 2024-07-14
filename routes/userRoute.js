@@ -33,6 +33,9 @@ user_route.post('/login',userController.verifyLogin);
 user_route.get('/register',userAuth.isLogout,userController.loadRegister);
 user_route.post('/register',userAuth.isLogout,userController.register);
 
+user_route.get('/about',userController.loadAbout);
+user_route.get('/contact',userController.loadContact);
+
 user_route.get('/logout',adminLoginAuth.isLogin,userController.logout);
 
 user_route.get('/user-logout',userAuth.isLogin,userController.logout);

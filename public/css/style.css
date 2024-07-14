@@ -4,7 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -8330,3 +8330,55 @@ a[data-toggle="collapse"] {
 
 .subscribe-form .form-control {
   background: #4897fc; }
+
+.container{
+  text-align: center;
+  align-items: center;
+ 
+}
+.row .col-sm-12{
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+/* .row .col-sm-12btn .btn-info:hover{
+  color: blanchedalmond;
+} */
+.btn{
+  background-color: #3282B8 ;
+  border: none;
+  color: white;
+  padding: 5px 20px;
+}
+.btn:hover{
+ background-color:#BBE1FA;
+ border: none;
+}
+
+#playcard-container-fpass {
+  text-decoration: none; 
+  color: #BBE1FA;
+}
+
+.playcard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.playcard > form{
+  padding: 50px;
+  width: 400px;
+  border-radius: 25px;
+  background-color:#1B262C;
+  box-shadow: 15px 15px 20px #3282B8;
+}
+
+.playcard-container {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center; 
+  padding: 0 20px;
+}
+
